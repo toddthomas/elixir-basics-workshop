@@ -27,10 +27,10 @@ In order to get the most out of this workshop, you will need:
 - A laptop set up with a code editor
 - Install Elixir with Homebrew `$ brew install elixir`
 - Syntax highlighting for elixir: vim, sublime, etc.
-- Send email about bringing laptop, installing elixir, and updating RSVP to be accurate
 
 ### Getting Started
 You should start by cloning this repository to your local machine.
+
 `$ git clone git@github.com:boulder-elixir/elixir-basics-workshop.git`
 
 Once you have it cloned, open the `index.html` file to view the presentation. At the exercise prompts, complete them in either `iex` or in the file `lib/workshop.ex` as requested.
@@ -50,4 +50,5 @@ TODO
 TODO
 * Add animations for the answers so that you don't see them immediately when going to next slide
 * Test out these on co-workers
+* Send email about bringing laptop, installing elixir, and updating RSVP to be accurate
 
