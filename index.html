@@ -14,11 +14,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-    <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="presentation/css/reveal.css">
+    <link rel="stylesheet" href="presentation/css/theme/black.css" id="theme">
 
     <!-- Code syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="presentation/lib/css/zenburn.css">
     <style>
       code { background: #3f3f3f; color: #dcdcdc;}
     </style>
@@ -28,7 +28,7 @@
       var link = document.createElement( 'link' );
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'presentation/css/print/pdf.css' : 'presentation/css/print/paper.css';
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 
@@ -389,7 +389,7 @@ iex> Enum.filter(map, fn {key, val} -> val > 10 end) |> Enum.take(1)
           <h2>Modules</h2>
           <p>Let's put our code into files!</p>
           <pre><code>
-# workshop.exs
+# lib/workshop.exs
 defmodule Workshop do
 
   def add(a, b) do
@@ -405,13 +405,13 @@ end
           <p>You have to tell iex to compile the file</p>
           <p>Compiles into Erlang bytecode</p>
           <pre><code>
-$ iex code/workshop.exs
+$ iex lib/workshop.exs
 ...
 iex> Workshop.add(1, 2)
 3
 
 # can also compile from within iex
-iex> c "code/workshop.exs"
+iex> c "lib/workshop.exs"
 [Workshop]
           </code></pre>
         </section>
@@ -421,9 +421,8 @@ iex> c "code/workshop.exs"
           <p>Can only be called from its module</p>
           <p>Cannot be unit tested</p>
           <pre><code>
-# workshop.exs
+# lib/workshop.exs
 defmodule Workshop do
-
   ...
 
   defp log_value(val) do
@@ -438,16 +437,108 @@ end
           <h2>Exercise</h2>
           <ol>
             <li>Add a <code>sum</code> function that sums every number in a list</li>
+            <li>Uncomment the tests for <code>sum</code> in <code>test/workshop_test.exs</code> and make them pass</li>
           </ol>
-          <p>Hint: use <code>Enum.reduce</code></p>
-          <p>There are tests for this! Run them with <code>mix test</code>.</p>
+          <p>Hint: use <code>Enum.reduce(enum, 0, function)</code></p>
+          <p>Run tests with <code>mix test</code>.</p>
+          <p>-</p>
+          <p>Take 10 minutes. Josh and I will be walking around.</p>
+          <p>If you have a question, raise your hand or ask your neighbor.</p>
+        </section>
+
+        <section>
+          <h2>Exercise Answer</h2>
+          <pre><code>
+def sum(list) do
+  Enum.reduce(list, 0, fn (num, acc) -> num + acc end)
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Pattern Matching With Functions</h3>
+          <p>Function signatures can use pattern matching too!</p>
+          <pre><code>
+# lib/workshop.exs
+defmodule Workshop do
+  ...
+
+  def divide(_, 0) do
+    "You can't divide by zero!"
+  end
+
+  def divide(dividend, divisor) do
+    dividend / divisor
+  end
+
+end
+          </code></pre>
+          <p>Multiple functions will get called based on what matches</p>
+        </section>
+
+        <section>
+          <h2>Exercise</h2>
+          <p>Let's write a variation of FizzBuzz!</p>
+          <ol>
+            <li>Write multiple versions of the function <code>fizzbuzz</code></li>
+            <li>If called with <code>3</code>, return <code>"Fizz"</code></li>
+            <li>If called with <code>5</code>, return <code>"Buzz"</code></li>
+            <li>If called with anything else, simply return what was passed in</li>
+          </ol>
+          <p>Uncomment and run tests with <code>mix test</code>.</p>
+          <p>-</p>
+          <p>Take 10 minutes. Josh and I will be walking around.</p>
+          <p>If you have a question, raise your hand or ask your neighbor.</p>
+        </section>
+
+        <section>
+          <h2>Exercise Answer</h2>
+          <pre><code>
+def fizzbuzz(3) do
+  "Fizz"
+end
+
+def fizzbuzz(5) do
+  "Buzz"
+end
+
+def fizzbuzz(val) do
+  val
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Recursion</h3>
+          <p>TODO</p>
+          <pre><code>
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise</h2>
+          <p>TODO</p>
+          <ol>
+            <li></li>
+          </ol>
+          <p>Uncomment and run tests with <code>mix test</code>.</p>
+          <p>-</p>
+          <p>Take 10 minutes. Josh and I will be walking around.</p>
+          <p>If you have a question, raise your hand or ask your neighbor.</p>
+        </section>
+
+        <section>
+          <h2>Exercise Answer</h2>
+          <pre><code>
+TODO
+          </code></pre>
         </section>
 
       </div>
     </div>
 
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.js"></script>
+    <script src="presentation/lib/js/head.min.js"></script>
+    <script src="presentation/js/reveal.js"></script>
     <script>
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
@@ -461,12 +552,12 @@ end
 
         // Optional reveal.js plugins
         dependencies: [
-          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: 'plugin/zoom-js/zoom.js', async: true },
-          { src: 'plugin/notes/notes.js', async: true }
+          { src: 'presentation/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'presentation/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'presentation/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'presentation/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'presentation/plugin/zoom-js/zoom.js', async: true },
+          { src: 'presentation/plugin/notes/notes.js', async: true }
         ]
       });
     </script>
