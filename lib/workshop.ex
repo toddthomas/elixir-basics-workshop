@@ -16,8 +16,17 @@ defmodule Workshop do
     dividend / divisor
   end
 
+  def add_one([]) do
+    []
+  end
 
-  # Exercises
+  def add_one([head | tail]) do
+    [head + 1 | add_one(tail)]
+  end
+
+
+
+  # Exercises, delete before meeting
 
   def sum(list) do
     Enum.reduce(list, 0, fn (num, acc) -> num + acc end)
@@ -33,6 +42,14 @@ defmodule Workshop do
 
   def fizzbuzz(val) do
     val
+  end
+
+  def square_list([]) do
+    []
+  end
+
+  def square_list([head | tail]) do
+    [head * head | square_list(tail)]
   end
 
 end

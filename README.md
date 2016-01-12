@@ -52,3 +52,6 @@ TODO
 * Test out these on co-workers
 * Send email about bringing laptop, installing elixir, and updating RSVP to be accurate
 
+
+Thoughts
+* `sum` function doesn't really show any feature of Elixir besides the Enum package. Maybe just show that there is an Enum package after the recursion example?

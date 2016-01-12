@@ -510,30 +510,168 @@ end
 
         <section>
           <h3>Recursion</h3>
-          <p>TODO</p>
+          <p>Basic definition: when a function calls itself</p>
+          <p>Because Elixir is a functional language, recursion is used in place of loops</p>
+          <p>Functions in Enum are implemented using recursion</p>
+        </section>
+
+        <section>
+          <h3>Lists</h3>
+          <p>All lists are linked lists</p>
+          <p>Every list can be separated into the first element and the rest of the list</p>
           <pre><code>
+iex> [head | tail] = [1, 2, 3, 4]
+[1, 2, 3, 4]
+
+iex> head
+1
+
+iex> tail
+[2, 3, 4]
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Lists</h3>
+          <p>Last element of every list is an empty list</p>
+          <pre><code>
+iex> [head | tail] = [1]
+[1]
+
+iex> head
+1
+
+iex> tail
+[]
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Recursion With Lists</h3>
+          <p>We can define recursive functions using pattern matching and using multiple functions</p>
+          <pre><code>
+def thing([]) do
+  []
+end
+
+def thing([head | tail]) do
+  ...
+end
+          </code></pre>
+          <p>Because last element is always empty list, that is our base case</p>
+          <p>After that, we can define functions that do the work</p>
+        </section>
+
+        <section>
+          <h3>Recursion With Lists</h3>
+          <p>Let's add 1 to every number in a list</p>
+          <pre><code>
+def add_one([]) do
+  []
+end
+          </code></pre>
+          <p>Define base case</p>
+        </section>
+
+        <section>
+          <h3>Recursion With Lists</h3>
+          <p>Let's add 1 to every number in a list</p>
+          <pre><code>
+def add_one([]) do
+  []
+end
+
+def add_one([head | tail]) do
+  # todo
+end
+          </code></pre>
+          <p>Define second function and assign first element <code>head</code> and rest of list <code>tail</code></p>
+        </section>
+
+        <section>
+          <h3>Recursion With Lists</h3>
+          <p>Let's add 1 to every number in a list</p>
+          <pre><code>
+def add_one([]) do
+  []
+end
+
+def add_one([head | tail]) do
+  [head + 1 | ...]
+end
+          </code></pre>
+          <p>In second function, declare new list with <code>head + 1</code> as the first element</li>
+        </section>
+
+        <section>
+          <h3>Recursion With Lists</h3>
+          <p>Let's add 1 to every number in a list</p>
+          <pre><code>
+def add_one([]) do
+  []
+end
+
+def add_one([head | tail]) do
+  [head + 1 | add_one(tail)]
+end
+          </code></pre>
+          <p>Recursively fill in the rest of the elements (call <code>add_one</code>)</p>
+          <p>When no more elements, the first function matches, and the stack returns</p>
+        </section>
+
+        <section>
+          <h2>In iex</h2>
+          <pre><code>
+iex> Workshop.add_one([])
+[]
+
+iex> Workshop.add_one([1])
+[2]
+
+iex> Workshop.add_one([1, 2, 3])
+[2, 3, 4]
+
+iex> Workshop.add_one([1, 2, 3, 10])
+[2, 3, 4, 11]
           </code></pre>
         </section>
 
         <section>
           <h2>Exercise</h2>
-          <p>Using recursion and pattern matching, square a list of numbers</p>
+          <p>Using recursion and pattern matching, write the function <code>square_list</code> which squares a list of numbers</p>
           <ol>
-            <li>TODO</li>
+            <li>Define your base case (handle empty list)</li>
+            <li>Define second function that assigns <code>head</code> and <code>tail</code></li>
+            <li>Return a new list with the first element being the squared <code>head</code></li>
+            <li>Recursively fill in the rest of the list by calling <code>square_list</code></li>
           </ol>
           <p>Uncomment and run tests with <code>mix test</code>.</p>
-          <p>-</p>
-          <p>Take 10 minutes. Josh and I will be walking around.</p>
-          <p>If you have a question, raise your hand or ask your neighbor.</p>
         </section>
 
         <section>
           <h2>Exercise Answer</h2>
           <pre><code>
-TODO
+def square_list([]) do
+  []
+end
+
+def square_list([head | tail]) do
+  [head * head | square_list(tail)]
+end
           </code></pre>
         </section>
 
+        <section>
+          <h2>Discussion</h2>
+          <p>Too hard?</p>
+          <p>Too easy?</p>
+          <p>Other thoughts?</p>
+        </section>
+
+        <section>
+          <h2>Next Time</h2>
+          <p>Presentations: message me if you want to talk</p>
+        </section>
       </div>
     </div>
 
