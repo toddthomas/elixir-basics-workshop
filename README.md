@@ -20,13 +20,13 @@ TODO
 - case, if
 -- exercise: write a case statement that handles a tuple with {:ok, ...} and {:error, ...}.
 - anonymous functions
-- maps & lists
+- lists
 -- exercise: combine two lists
 -- exercise: use Enum.map to square a list of numbers
 - pipe character
 -- exercise: square a list of numbers and then shuffle the result
-- functions
-- modules & compiling files in iex
+- maps
+- modules, functions & compiling files in iex
 - pattern matching with functions
 -- exercise: fizz buzz with no if statements. write it in a file and compile it into iex to run
 - recursion

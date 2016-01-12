@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js – The HTML Presentation Framework</title>
+    <title>Elixir Basics Workshop</title>
 
     <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
     <meta name="author" content="Hakim El Hattab">
@@ -63,7 +63,22 @@
         <section>
           <h2>Why Elixir?</h2>
           <ul>
-            <li></li>
+            <li>Really fast</li>
+            <li>Easy to work with, even for big projects</li>
+            <li>Fantastic tooling</li>
+            <li>Concurrency!</li>
+            <li>Reliability: high up-time</li>
+            <li>Hot code reloading</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Workshop Goals</h2>
+          <ul>
+            <li>Learn basic syntax & how to work with Elixir</li>
+            <li>Be able to solve simple problems</li>
+            <li>Be exposed to Elixir's core features</li>
+            <li>Be inspired to go home and learn more</li>
           </ul>
         </section>
 
@@ -81,22 +96,20 @@ iex(1)>
         </section>
 
         <section>
-          <h2>Basic Types</h2>
-          <p>TODO</p>
-        </section>
-
-        <section>
           <h2>Assigning Variables</h2>
-          <p>Mostly similar to other languages</p>
           <pre><code>
 iex> x = 2
 2
 iex> y = 3
 3
+
+# {...} are tuples
 iex> {x, y} = {2, 3}
 {2, 3}
+iex> {a, b, c} = {4, 5, 6}
+{4, 5, 6}
           </code></pre>
-          <p>except...</p>
+          <p>Mostly similar to other languages</p>
         </section>
 
         <section>
@@ -104,8 +117,10 @@ iex> {x, y} = {2, 3}
           <pre><code>
 iex> {:ok, val} = {:ok, 42}
 {:ok, 42}
+
 iex> val
 42
+
 iex> {:ok, val} = {:error, nil}
 ** (MatchError) no match of right hand side value: {:error, nil}
           </code></pre>
@@ -159,7 +174,7 @@ iex> if true do
           <pre><code>
 iex> case true do
 ...>   true -> "Hello!"
-...>   _ -> "Goodbye!"
+...>   _ -> "This will match anything except true"
 ...> end
 "Hello!"
           </code></pre>
@@ -170,10 +185,11 @@ iex> case true do
           <h2>Case Statements With Pattern Matching</h2>
           <pre><code>
 iex> case {:ok, 42} do
-...>   {:ok, val} -> val
-...>   _ -> "Not OK"
+...>   {:ok, 42} -> "The number is 42!"
+...>   {:ok, val} -> "The number is not 42. It is: #{val}"
+...>   _ -> "Matches everything else."
 ...> end
-42
+"The number is 42!"
           </code></pre>
         </section>
 
@@ -239,7 +255,7 @@ iex> Enum.shuffle([1, 2, 3, 4])
 
         <section>
           <h2>Enum cont.</h2>
-          <p>Many Enum functions take an anonymous function as an argument.</p>
+          <p>Many Enum functions take a function as an argument.</p>
           <p>Map, for instance:</p>
           <p><code>Enum.map(enumerable, function)</code></p>
 
@@ -253,10 +269,10 @@ iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end)
           <h2>Detour: Anonymous Functions</h2>
           <p>Use <code>fn (args) -></code> and <code>end</code> to define.</p>
           <pre><code>
-iex> x = fn (a, b) -> a + b end
+iex> add = fn (a, b) -> a + b end
 #Function<12.90072148/2 in :erl_eval.expr/5>
 
-iex> x.(1, 2)
+iex> add.(1, 2)
 3
           </code></pre>
           <p>Note you have to use <code>.</code> to invoke the function</p>
@@ -274,13 +290,17 @@ iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end)
         </section>
 
         <section>
+          <h2>Pipe Character</h2>
+
+        </section>
+
+        <section>
           <h2>Exercise</h2>
           <ol>
             <li>Combine two lists</li>
             <li>Use Enum.map to square this list of numbers: <code>[1, 2, 3, 4]</code></li>
-            <li>Use Enum.filter to get all items in <code>%{a: 3, b: 12, c: 9, d: 15}</code> where value is greater than 10. </li>
+            <li>Using the code from #2, square a list of numbers and then shuffle them</li>
           </ol>
-          <!-- <p><code>Enum.map(enumerable, function)</code> &#45; <code>Enum.filter(enumerable, function)</code></p> -->
           <p>-</p>
           <p>Take 5 minutes. Josh and I will be walking around.</p>
           <p>If you have a question, raise your hand or ask your neighbor.</p>
@@ -289,13 +309,138 @@ iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end)
         <section>
           <h2>Exercise Answer</h2>
           <pre><code>
-#1
+iex> [1, 2, 3] ++ [3, 4, 5]
+[1, 2, 3, 3, 4, 5]
 
-#2
+iex> Enum.map([1, 2, 3, 4], fn x -> x * x end)
+[1, 4, 9, 16]
 
-iex> Enum.filter(%{a: 3, b: 12, c: 9, d: 15}, fn {key, val} -> val > 10 end)
-[b: 12, d: 15]
+iex> Enum.map([1, 2, 3, 4], fn x -> x * x end) |> Enum.shuffle
+[4, 16, 1, 9]
           </code></pre>
+        </section>
+
+        <section>
+          <h2>Maps</h2>
+          <p><code>%{key: value, key: value}</code></p>
+          <pre><code>
+iex> a = %{a: 13, b: true, c: "cat"}
+%{a: 13, b: true, c: "cat"}
+
+iex> a.a
+13
+
+iex> a.c
+"cat"
+
+iex> a[:c]
+"cat"
+
+iex> Map.put(a, :d, "hey there")
+%{a: 13, b: true, c: "cat", d: "hey there"}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Enum With Maps</h2>
+          <p>Pass in the map and a function</p>
+          <pre><code>
+iex> map = %{a: 1, b: 2, c: 3}
+%{a: 1, b: 2, c: 3}
+
+iex> Enum.map(map, fn {key, val} -> val * val end)
+[1, 4, 9]
+
+iex> Enum.map(map, fn {key, val} -> val * val end) |> Enum.max
+9
+
+iex> Enum.filter(map, fn {key, val} -> val == 2 end)
+[b: 2]
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise</h2>
+          <ol>
+            <li>Given the map <code>%{a: 1, b: 2}</code>, add the element <code>c: 3</code>. Hint: Use <code>Map.put(enum, key, value)</code></li>
+            <li>Use Enum.filter to get all items in <code>%{a: 3, b: 12, c: 9, d: 15}</code> where value is greater than 10. </li>
+            <li>Using pipes and <code>Enum.take(enumerable, number)</code>, modify code in #1 to only return 1 item.</li>
+          </ol>
+          <p>-</p>
+          <p>Take 5 minutes. Josh and I will be walking around.</p>
+          <p>If you have a question, raise your hand or ask your neighbor.</p>
+        </section>
+
+        <section>
+          <h2>Exercise Answer</h2>
+          <pre><code>
+iex> map = %{a: 3, b: 12, c: 9, d: 15}
+%{a: 3, b: 12, c: 9, d: 15}
+
+iex> Enum.filter(map, fn {key, val} -> val > 10 end)
+[b: 12, d: 15]
+
+iex> Enum.filter(map, fn {key, val} -> val > 10 end) |> Enum.take(1)
+[b: 12]
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Modules</h2>
+          <p>Let's put our code into files!</p>
+          <pre><code>
+# workshop.exs
+defmodule Workshop do
+
+  def add(a, b) do
+    a + b
+  end
+
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Running Modules In iex</h2>
+          <p>You have to tell iex to compile the file</p>
+          <p>Compiles into Erlang bytecode</p>
+          <pre><code>
+$ iex code/workshop.exs
+...
+iex> Workshop.add(1, 2)
+3
+
+# can also compile from within iex
+iex> c "code/workshop.exs"
+[Workshop]
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Private Functions</h2>
+          <p>Can only be called from its module</p>
+          <p>Cannot be unit tested</p>
+          <pre><code>
+# workshop.exs
+defmodule Workshop do
+
+  ...
+
+  defp log_value(val) do
+    IO.puts "Value is: #{val}"
+  end
+
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise</h2>
+          <ol>
+            <li>Add a <code>sum</code> function that sums every number in a list</li>
+          </ol>
+          <p>Hint: use <code>Enum.reduce</code></p>
+          <p>There are tests for this! Run them with <code>mix test</code>.</p>
         </section>
 
       </div>
