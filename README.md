@@ -25,8 +25,13 @@ You will learn about:
 In order to get the most out of this workshop, you will need:
 - Some coding experience with another language
 - A laptop set up with a code editor
-- Install Elixir with Homebrew `$ brew install elixir`
+- Install Elixir with Homebrew (on Mac) `$ brew install elixir`
+- Other platforms, follow these instructions: http://elixir-lang.org/install.html
 - Syntax highlighting for elixir: vim, sublime, etc.
+
+Useful links:
+- Elixir Website: http://elixir-lang.org/
+- Elixir Docs: http://elixir-lang.org/docs/stable/elixir/Kernel.html
 
 ### Getting Started
 You should start by cloning this repository to your local machine.

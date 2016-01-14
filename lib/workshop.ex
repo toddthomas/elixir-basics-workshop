@@ -1,5 +1,7 @@
 defmodule Workshop do
 
+  # examples
+
   def add(a, b) do
     a + b
   end
@@ -24,32 +26,6 @@ defmodule Workshop do
     [head + 1 | add_one(tail)]
   end
 
-
-
-  # Exercises, delete before meeting
-
-  def sum(list) do
-    Enum.reduce(list, 0, fn (num, acc) -> num + acc end)
-  end
-
-  def fizzbuzz(3) do
-    "Fizz"
-  end
-
-  def fizzbuzz(5) do
-    "Buzz"
-  end
-
-  def fizzbuzz(val) do
-    val
-  end
-
-  def square_list([]) do
-    []
-  end
-
-  def square_list([head | tail]) do
-    [head * head | square_list(tail)]
-  end
+  # exercises - fill me in!
 
 end

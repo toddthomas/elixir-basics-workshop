@@ -48,11 +48,6 @@
         </section>
 
         <section>
-          <h2>Introductions</h2>
-          <p>Let's go around the room. Introduce yourself, give a little background, and tell us why you're interested in Elixir.</p>
-        </section>
-
-        <section>
           <h2>Preliminary Questions</h2>
           <ul>
             <li>Format: workshops, presentations, both?</li>
@@ -67,8 +62,10 @@
             <li>Easy to work with, even for big projects</li>
             <li>Fantastic tooling</li>
             <li>Concurrency!</li>
-            <li>Reliability: high up-time</li>
+            <li>Auto-recover failures</li>
+            <li>High up-time</li>
             <li>Hot code reloading</li>
+            <li>Runs on BEAM (Erlang), 30 years battle tested</li>
           </ul>
         </section>
 
@@ -100,12 +97,14 @@ iex(1)>
           <pre><code>
 iex> x = 2
 2
+
 iex> y = 3
 3
 
 # {...} are tuples
 iex> {x, y} = {2, 3}
 {2, 3}
+
 iex> {a, b, c} = {4, 5, 6}
 {4, 5, 6}
           </code></pre>
@@ -281,7 +280,6 @@ iex> add.(1, 2)
 
         <section>
           <h2>Let's see that Enum again</h2>
-
           <pre><code>
 iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end)
 [2, 3, 4]
@@ -291,15 +289,24 @@ iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end)
 
         <section>
           <h2>Pipe Character</h2>
+          <p>Similar to Unix pipe</p>
+          <p>Takes output of first function and passes as first argument to next function</p>
+          <pre><code>
+iex(13)> Enum.map([1, 2, 3], fn x -> x + 1 end) |> Enum.take(1)
+[2]
 
+# equivalent to
+list = Enum.map([1, 2, 3], fn x -> x + 1 end)
+Enum.take(list, 1)
+          </code></pre>
         </section>
 
         <section>
           <h2>Exercise</h2>
           <ol>
             <li>Combine two lists</li>
-            <li>Use Enum.map to square this list of numbers: <code>[1, 2, 3, 4]</code></li>
-            <li>Using the code from #2, square a list of numbers and then shuffle them</li>
+            <li>Use <code>Enum.map</code> to square this list of numbers: <code>[1, 2, 3, 4]</code></li>
+            <li>Using the code from #2 and the pipe character, square a list of numbers and then shuffle them using <code>Enum.shuffle()</code></li>
           </ol>
           <p>-</p>
           <p>Take 5 minutes. Josh and I will be walking around.</p>
@@ -336,7 +343,7 @@ iex> a.c
 iex> a[:c]
 "cat"
 
-iex> Map.put(a, :d, "hey there")
+iex> Map.put(a, :d, "hey there") # Map.put(map, key, value)
 %{a: 13, b: true, c: "cat", d: "hey there"}
           </code></pre>
         </section>
@@ -345,16 +352,16 @@ iex> Map.put(a, :d, "hey there")
           <h2>Enum With Maps</h2>
           <p>Pass in the map and a function</p>
           <pre><code>
-iex> map = %{a: 1, b: 2, c: 3}
+iex> my_map = %{a: 1, b: 2, c: 3}
 %{a: 1, b: 2, c: 3}
 
-iex> Enum.map(map, fn {key, val} -> val * val end)
+iex> Enum.map(my_map, fn {key, val} -> val * val end)
 [1, 4, 9]
 
-iex> Enum.map(map, fn {key, val} -> val * val end) |> Enum.max
+iex> Enum.map(my_map, fn {key, val} -> val * val end) |> Enum.max
 9
 
-iex> Enum.filter(map, fn {key, val} -> val == 2 end)
+iex> Enum.filter(my_map, fn {key, val} -> val == 2 end)
 [b: 2]
           </code></pre>
         </section>
@@ -363,12 +370,12 @@ iex> Enum.filter(map, fn {key, val} -> val == 2 end)
           <h2>Exercise</h2>
           <ol>
             <li>Given the map <code>%{a: 1, b: 2}</code>, add the element <code>c: 3</code>. Hint: Use <code>Map.put(enum, key, value)</code></li>
-            <li>Use Enum.filter to get all items in <code>%{a: 3, b: 12, c: 9, d: 15}</code> where value is greater than 10. </li>
-            <li>Using pipes and <code>Enum.take(enumerable, number)</code>, modify code in #1 to only return 1 item.</li>
+            <li>Use <code>Enum.filter(enum, function)</code> to get all items in <code>%{a: 3, b: 12, c: 9, d: 15}</code> where value is greater than 10. </li>
+            <li>Using pipes and <code>Enum.take(enum, number)</code>, modify code in #1 to only return 1 item.</li>
           </ol>
+          <p>Hint: Use <code>{key, value}</code> to extract the keys and values in your anonymous function</p>
           <p>-</p>
-          <p>Take 5 minutes. Josh and I will be walking around.</p>
-          <p>If you have a question, raise your hand or ask your neighbor.</p>
+          <p>Take 10 minutes. Josh and I will be walking around.</p>
         </section>
 
         <section>
@@ -439,11 +446,10 @@ end
             <li>Add a <code>sum</code> function that sums every number in a list</li>
             <li>Uncomment the tests for <code>sum</code> in <code>test/workshop_test.exs</code> and make them pass</li>
           </ol>
-          <p>Hint: use <code>Enum.reduce(enum, 0, function)</code></p>
-          <p>Run tests with <code>mix test</code>.</p>
+          <p>Hint: use <code>Enum.reduce(enum, 0, fn (num, accumulator))</code></p>
+          <p>Run tests with <code>mix test</code> in console.</p>
           <p>-</p>
           <p>Take 10 minutes. Josh and I will be walking around.</p>
-          <p>If you have a question, raise your hand or ask your neighbor.</p>
         </section>
 
         <section>
@@ -563,7 +569,7 @@ end
         </section>
 
         <section>
-          <h3>Recursion With Lists</h3>
+          <h3>Recursion With Lists - Example</h3>
           <p>Let's add 1 to every number in a list</p>
           <pre><code>
 def add_one([]) do
@@ -574,7 +580,7 @@ end
         </section>
 
         <section>
-          <h3>Recursion With Lists</h3>
+          <h3>Recursion With Lists - Example</h3>
           <p>Let's add 1 to every number in a list</p>
           <pre><code>
 def add_one([]) do
@@ -589,7 +595,7 @@ end
         </section>
 
         <section>
-          <h3>Recursion With Lists</h3>
+          <h3>Recursion With Lists - Example</h3>
           <p>Let's add 1 to every number in a list</p>
           <pre><code>
 def add_one([]) do
@@ -604,7 +610,7 @@ end
         </section>
 
         <section>
-          <h3>Recursion With Lists</h3>
+          <h3>Recursion With Lists - Example</h3>
           <p>Let's add 1 to every number in a list</p>
           <pre><code>
 def add_one([]) do
