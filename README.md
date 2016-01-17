@@ -1,5 +1,5 @@
 # Elixir Basics Workshop
-From the [Boulder Elixir Meetup](http://www.meetup.com/boulder-elixir/events/227501746/) on 2015-01-28.
+From the [Boulder Elixir Meetup](http://www.meetup.com/boulder-elixir/events/227501746/) on 2016-01-28.
 
 Welcome to the Elixir Basics Workshop!
 
